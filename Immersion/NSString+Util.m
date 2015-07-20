@@ -15,7 +15,7 @@
     NSInteger second = (NSInteger)interval % 60;
     NSInteger minute = interval / 60;
     
-    NSString *retVal = [NSString stringWithFormat:@"%ld:%ld", minute, second];
+    NSString *retVal = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     return retVal;
 }
 

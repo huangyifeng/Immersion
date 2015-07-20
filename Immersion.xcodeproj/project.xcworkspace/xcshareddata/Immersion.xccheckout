@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DB624AC5-8BED-4943-8EC0-E72B3911B019</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Immersion</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>087B895450B27E0067F2BA69C5A3DE57B1D6C9F0</key>
+		<string>https://github.com/huangyifeng/Immersion.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Immersion.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>087B895450B27E0067F2BA69C5A3DE57B1D6C9F0</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/huangyifeng/Immersion.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>087B895450B27E0067F2BA69C5A3DE57B1D6C9F0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>087B895450B27E0067F2BA69C5A3DE57B1D6C9F0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Immersion</string>
+		</dict>
+	</array>
+</dict>
+</plist>
