@@ -10,6 +10,7 @@
 #import "NSString+Util.h"
 
 NSTimeInterval const DEFAULT_TIME_INTERVAL = 15 * 60;
+NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
 
 @interface ViewController ()
 
@@ -27,6 +28,7 @@ NSTimeInterval const DEFAULT_TIME_INTERVAL = 15 * 60;
 
 - (void)resetTimer;
 - (void)startTimer;
+- (void)resumeApp;
 
 - (IBAction)startTapHandler:(id)sender;
 - (IBAction)stopTapHandler:(id)sender;
@@ -40,7 +42,7 @@ NSTimeInterval const DEFAULT_TIME_INTERVAL = 15 * 60;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self resetTimer];
+    [self resumeApp];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +63,11 @@ NSTimeInterval const DEFAULT_TIME_INTERVAL = 15 * 60;
         label.text = timeString;
     }];
     [_timer invalidate];
+    
+    //clear defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:IMMERSION_NOW_INTERVAL];
+    [defaults synchronize];
 }
 
 - (void)startTimer
@@ -71,8 +78,48 @@ NSTimeInterval const DEFAULT_TIME_INTERVAL = 15 * 60;
     }
     
     _isRunning = YES;
+    
+    //For resume app
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSTimeInterval nowInterval  = [[NSDate date] timeIntervalSinceReferenceDate];
+    [defaults setObject:[NSNumber numberWithDouble:nowInterval] forKey:IMMERSION_NOW_INTERVAL];
+    [defaults synchronize];
+    
     _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)resumeApp
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *intervalNum = [defaults objectForKey:IMMERSION_NOW_INTERVAL];
+    NSTimeInterval lastInterval = [intervalNum doubleValue];
+    
+    if (!intervalNum || 0 == lastInterval)
+    {
+        [self resetTimer];
+    }
+    else
+    {
+        NSTimeInterval nowInterval = [[NSDate date] timeIntervalSinceReferenceDate];
+        _currentPhase = (nowInterval - lastInterval) / DEFAULT_TIME_INTERVAL;
+        if (3 < _currentPhase)
+        {
+            [self resetTimer];
+        }
+        else
+        {
+            _currentPhaseRest = (int)(nowInterval - lastInterval) % (int)DEFAULT_TIME_INTERVAL;
+            [_labels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if (idx < _currentPhase) {
+                    UILabel *label = (UILabel *)obj;
+                    label.text = [NSString stringFromTimeInterval:0];
+                }
+            }];
+            _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+        }
+    }
 }
 
 - (void)showAlert:(NSString *)message
