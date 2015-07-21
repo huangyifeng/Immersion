@@ -29,6 +29,7 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
 - (void)resetTimer;
 - (void)startTimer;
 - (void)resumeApp;
+- (void)registerLocalNotification;
 
 - (IBAction)startTapHandler:(id)sender;
 - (IBAction)stopTapHandler:(id)sender;
@@ -68,6 +69,9 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:nil forKey:IMMERSION_NOW_INTERVAL];
     [defaults synchronize];
+    
+    //local notification
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)startTimer
@@ -87,6 +91,8 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
     
     _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+    
+    [self registerLocalNotification];
 }
 
 - (void)resumeApp
@@ -109,11 +115,14 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
         }
         else
         {
-            _currentPhaseRest = (int)(nowInterval - lastInterval) % (int)DEFAULT_TIME_INTERVAL;
+            _currentPhaseRest = DEFAULT_TIME_INTERVAL - ((int)(nowInterval - lastInterval) % (int)DEFAULT_TIME_INTERVAL);
             [_labels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                UILabel *label = (UILabel *)obj;
                 if (idx < _currentPhase) {
-                    UILabel *label = (UILabel *)obj;
                     label.text = [NSString stringFromTimeInterval:0];
+                }else
+                {
+                    label.text = [NSString stringFromTimeInterval:DEFAULT_TIME_INTERVAL];
                 }
             }];
             _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
@@ -130,6 +139,23 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 
+}
+
+- (void)registerLocalNotification
+{
+    void(^addOneLocalNotification)(NSInteger , NSDate *) = ^void(NSInteger idx, NSDate * date)
+    {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.fireDate = date;
+        localNotification.alertBody = [NSString stringWithFormat:@"阶段%ld已完成", idx];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    };
+    
+    for (int i = 1; i < 5; i++)
+    {
+        NSDate *alertDate = [NSDate dateWithTimeIntervalSinceNow:DEFAULT_TIME_INTERVAL * i];
+        addOneLocalNotification(i, alertDate);
+    }
 }
 
 #pragma mark - Action
