@@ -12,6 +12,7 @@
 		BB2ED21E1B5C968800ECE3F5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2ED21D1B5C968800ECE3F5 /* ViewController.m */; };
 		BB2ED2211B5C968800ECE3F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB2ED21F1B5C968800ECE3F5 /* Main.storyboard */; };
 		BB2ED2231B5C968800ECE3F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB2ED2221B5C968800ECE3F5 /* Assets.xcassets */; };
+		BB47FEA61B60DFD40028706C /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB47FEA51B60DFD40028706C /* IntroductionViewController.m */; };
 		BB8FEE991B5CCA760043D9AC /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8FEE981B5CCA760043D9AC /* NSString+Util.m */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,8 @@
 		BB2ED2201B5C968800ECE3F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB2ED2221B5C968800ECE3F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB2ED2271B5C968800ECE3F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB47FEA41B60DFD40028706C /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		BB47FEA51B60DFD40028706C /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
 		BB8FEE971B5CCA760043D9AC /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		BB8FEE981B5CCA760043D9AC /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		C4E587031B5D2AF6006AB97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		BB2ED2151B5C968700ECE3F5 /* Immersion */ = {
 			isa = PBXGroup;
 			children = (
+				BB47FEA31B60DF9B0028706C /* Controllers */,
 				BB8FEE961B5CCA360043D9AC /* Util */,
 				BB2ED2191B5C968800ECE3F5 /* AppDelegate.h */,
 				BB2ED21A1B5C968800ECE3F5 /* AppDelegate.m */,
@@ -80,6 +84,15 @@
 				BB2ED2171B5C968800ECE3F5 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BB47FEA31B60DF9B0028706C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BB47FEA41B60DFD40028706C /* IntroductionViewController.h */,
+				BB47FEA51B60DFD40028706C /* IntroductionViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		BB8FEE961B5CCA360043D9AC /* Util */ = {
@@ -162,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2ED21E1B5C968800ECE3F5 /* ViewController.m in Sources */,
+				BB47FEA61B60DFD40028706C /* IntroductionViewController.m in Sources */,
 				BB2ED21B1B5C968800ECE3F5 /* AppDelegate.m in Sources */,
 				BB2ED2181B5C968800ECE3F5 /* main.m in Sources */,
 				BB8FEE991B5CCA760043D9AC /* NSString+Util.m in Sources */,
