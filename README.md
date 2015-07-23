@@ -3,3 +3,6 @@
 
 ####沉浸工作法介绍
 http://www.zhihu.com/question/31877598/answer/53667346
+
+####截图
+<img src="https://raw.githubusercontent.com/huangyifeng/HostPlainFile/master/Immersion/immersion_screen_shot.png" width="320px" style="border-style: solid; border-width: thin"/>
