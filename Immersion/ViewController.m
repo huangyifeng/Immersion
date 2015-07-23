@@ -42,13 +42,23 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self resumeApp];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - public
+
+- (void)becomeActive
+{
+    [self resumeApp];
 }
 
 #pragma mark - private
@@ -115,6 +125,7 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
         }
         else
         {
+            _isRunning = YES;
             _currentPhaseRest = DEFAULT_TIME_INTERVAL - ((int)(nowInterval - lastInterval) % (int)DEFAULT_TIME_INTERVAL);
             [_labels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 UILabel *label = (UILabel *)obj;
@@ -125,8 +136,12 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
                     label.text = [NSString stringFromTimeInterval:DEFAULT_TIME_INTERVAL];
                 }
             }];
-            _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+            
+            if (![_timer isValid])
+            {
+                _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
+                [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+            }
         }
     }
 }
@@ -148,6 +163,7 @@ NSString const *IMMERSION_NOW_INTERVAL = @"immersion_now_interval";
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
         localNotification.fireDate = date;
         localNotification.alertBody = [NSString stringWithFormat:@"阶段%ld已完成", idx];
+        localNotification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     };
     
